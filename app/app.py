@@ -11,7 +11,7 @@ uploaded_file = st.sidebar.file_uploader("Выберите Excel-файл", type
 
 if uploaded_file:
     # Загрузка данных из Excel
-    df = pd.read_excel(uploaded_file, parse_dates=['time'])
+    df = pd.read_excel("", parse_dates=['time'])
 
     # 🗓️ Создание столбца месяца
     df['mon'] = df['time'].dt.to_period('M').dt.to_timestamp()
