@@ -5,13 +5,18 @@ import matplotlib.pyplot as plt
 # 🎯 Настройки страницы
 st.set_page_config(page_title="Отчёт по простоям", layout="wide")
 
-# 📥 Загрузка данных
-st.sidebar.header("Загрузка данных")
-uploaded_file = st.sidebar.file_uploader("Выберите Excel-файл", type=["xlsx"])
+
+st.title("Анализ простоев")
+
+# Загрузка файла
+uploaded_file = st.sidebar.file_uploader("Загрузите Excel-файл", type="xlsx")
 
 if uploaded_file:
-    # Загрузка данных из Excel
-    df = pd.read_excel("", parse_dates=['time'])
+    df = pd.read_excel(uploaded_file, parse_dates=['time'])
+
+    # Тут твоя логика обработки
+
+
 
     # 🗓️ Создание столбца месяца
     df['mon'] = df['time'].dt.to_period('M').dt.to_timestamp()
@@ -90,3 +95,8 @@ if uploaded_file:
         for i, v in enumerate(lines['id']):
             ax3.text(v + 0.5, i, f'{v:.0f}', va='center')
         st.pyplot(fig3)
+
+    st.write("📄 Пример данных", df.head())
+
+else:
+    st.warning("⬅️ Загрузите Excel-файл слева, чтобы увидеть дашборд.")
